@@ -79,7 +79,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 }
 .nav-wrap{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;max-width:var(--maxw);margin:0 auto;}
 .brand{display:flex;align-items:center;gap:10px;font-family:var(--font-display);font-size:20px;font-weight:600;color:var(--forest-black);}
-.brand .brand-mark{height:34px;width:auto;display:block;flex-shrink:0;}
+.brand .brand-mark{height:40px;width:40px;display:block;flex-shrink:0;object-fit:cover;border-radius:8px;}
 @media(max-width:639px){
   .nav-wrap{padding:10px 16px;}
   .burger{padding:6px;}
