@@ -135,6 +135,16 @@
     const closeBtn = modal.querySelector('[data-lead-gate-close]');
     let pending = null;
 
+    // Pressing the phone's/browser's back button while this popup is open
+    // should just close the popup, not leave the page. We do this by
+    // pushing a throwaway history entry when the popup opens, so "back"
+    // pops that entry (fires popstate) instead of leaving for the
+    // previous page. If the popup is closed any other way (X, backdrop,
+    // Escape, form submit) we quietly remove that same entry so a later,
+    // real "back" press still works normally.
+    let historyEntryOpen = false;
+    let suppressNextPopstate = false;
+
     function openModal(action){
       pending = action;
       titleEl.textContent = action.title;
@@ -143,16 +153,32 @@
       document.body.classList.add('modal-open');
       const firstInput = form.querySelector('input[name="name"]');
       if (firstInput) firstInput.focus();
+      if (!historyEntryOpen) {
+        history.pushState({ leadGateOpen: true }, '');
+        historyEntryOpen = true;
+      }
     }
-    function closeModal(){
+    function closeModal(fromPopstate){
       modal.classList.remove('open');
       document.body.classList.remove('modal-open');
       pending = null;
+      if (historyEntryOpen) {
+        historyEntryOpen = false;
+        if (!fromPopstate) {
+          suppressNextPopstate = true;
+          history.back();
+        }
+      }
     }
 
-    closeBtn.addEventListener('click', closeModal);
-    modal.addEventListener('click', function(e){ if (e.target === modal) closeModal(); });
-    document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && modal.classList.contains('open')) closeModal(); });
+    window.addEventListener('popstate', function(){
+      if (suppressNextPopstate) { suppressNextPopstate = false; return; }
+      if (modal.classList.contains('open')) closeModal(true);
+    });
+
+    closeBtn.addEventListener('click', function(){ closeModal(false); });
+    modal.addEventListener('click', function(e){ if (e.target === modal) closeModal(false); });
+    document.addEventListener('keydown', function(e){ if (e.key === 'Escape' && modal.classList.contains('open')) closeModal(false); });
 
     form.addEventListener('submit', function(e){
       e.preventDefault();
@@ -162,7 +188,7 @@
       window.dataLayer.push({ event: 'lead_gate_submit', gate_action: pending.action, gate_source: pending.source });
       sendToSheet({ name: nameVal, phone: phoneVal, action: pending.action, source: pending.source });
       const target = pending;
-      closeModal();
+      closeModal(false);
 
       // Call/WhatsApp still need to actually fire (dialer / chat) — those
       // aren't pages, so they don't replace the thank-you redirect below.
