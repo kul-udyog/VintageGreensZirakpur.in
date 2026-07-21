@@ -32,6 +32,7 @@
     <div class="nav-wrap">
       <a href="${base}index.html" class="brand">
         <img src="${base}assets/img/logo-mark.jpg" alt="Vintage Greens logo" class="brand-mark" width="40" height="40">
+        Vintage Greens
       </a>
       <nav class="nav-links" aria-label="Primary">
         ${nav.slice(0,9).map(([label,href])=>`<a href="${href}" ${isCurrent(href)?'aria-current="page"':''}>${label}</a>`).join('')}

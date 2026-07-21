@@ -5,6 +5,17 @@
     window.dataLayer.push({ event: eventName, form_type: formType });
   }
 
+  // Strips spaces/dashes and a leading +91/91/0 so the leads sheet always
+  // gets a clean 10-digit number, no matter how the person typed it
+  // (e.g. "98765 43210", "+91 98765-43210", "0987654321" all become
+  // "9876543210").
+  function normalizePhone(raw){
+    let digits = String(raw || '').replace(/[^\d]/g, '');
+    if (digits.length === 12 && digits.indexOf('91') === 0) digits = digits.slice(2);
+    else if (digits.length === 11 && digits.indexOf('0') === 0) digits = digits.slice(1);
+    return digits;
+  }
+
   // ---- Google Sheet lead capture -----------------------------------------
   // Paste the Web App URL from your Google Apps Script deployment here.
   // See google-apps-script-lead-capture.gs in the project root for setup
@@ -13,6 +24,7 @@
 
   function sendToSheet(data){
     if (!SHEET_WEBAPP_URL || SHEET_WEBAPP_URL.indexOf('PASTE_YOUR') === 0) return;
+    if (data && data.phone) data.phone = normalizePhone(data.phone);
     const body = new URLSearchParams(Object.assign({
       page: window.location.pathname
     }, data));
@@ -77,8 +89,8 @@
         '<h3 data-lead-gate-title>Quick details first</h3>' +
         '<p>Share your name and number, and we\'ll take you ahead.</p>' +
         '<form class="quick-form">' +
-          '<input type="text" name="name" placeholder="Your Name" required>' +
-          '<input type="tel" name="phone" placeholder="Phone Number" pattern="[0-9]{10}" required>' +
+          '<input type="text" name="name" placeholder="Your Name" autocomplete="name" required>' +
+          '<input type="tel" name="phone" placeholder="Phone Number" pattern="[+]?[0-9\s-]{10,15}" title="10-digit mobile number, with or without +91" autocomplete="tel" inputmode="tel" required>' +
           '<button type="submit" class="btn btn-primary btn-block" data-lead-gate-submit>Continue</button>' +
         '</form>' +
       '</div>';
