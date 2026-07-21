@@ -25,7 +25,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="image" href="assets/img/hero-aerial-new.jpg" fetchpriority="high">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap">
-<link rel="stylesheet" href="assets/css/styles.css">
+<link rel="stylesheet" href="assets/css/styles.css?v=4">
 <link rel="icon" href="assets/img/logo-mark.jpg">
 
 <script type="application/ld+json">
@@ -114,8 +114,8 @@
           <h3>Get a Callback</h3>
           <p style="color:rgba(255,255,255,.7);font-size:13.5px;margin-bottom:16px;">Share your name &amp; number — our team will call you with price &amp; availability.</p>
           <form class="quick-form on-dark" data-form-type="quick_lead" data-source="hero" data-redirect="thank-you/index.html">
-            <input type="text" name="name" placeholder="Your Name" required>
-            <input type="tel" name="phone" placeholder="Phone Number" pattern="[0-9]{10}" required>
+            <input type="text" name="name" placeholder="Your Name" autocomplete="name" required>
+            <input type="tel" name="phone" placeholder="Phone Number" pattern="[+]?[0-9\s-]{10,15}" title="10-digit mobile number, with or without +91" autocomplete="tel" inputmode="tel" required>
             <button type="submit" class="btn btn-gold btn-block">Get Callback</button>
           </form>
           <p class="form-note" style="color:rgba(255,255,255,.55);">By submitting, you agree to be contacted regarding Vintage Greens.</p>
@@ -295,8 +295,8 @@
           <h3>Download Brochure</h3>
           <p style="font-size:13.5px;color:var(--ink-soft);margin-bottom:16px;">Share your details and we'll send it on WhatsApp right away.</p>
           <form class="quick-form" data-form-type="brochure_download" data-source="home_brochure" data-whatsapp="https://wa.me/917508058594?text=Hi%2C%20please%20send%20me%20the%20Vintage%20Greens%20brochure">
-            <input type="text" name="name" placeholder="Your Name" required>
-            <input type="tel" name="phone" placeholder="WhatsApp Number" pattern="[0-9]{10}" required>
+            <input type="text" name="name" placeholder="Your Name" autocomplete="name" required>
+            <input type="tel" name="phone" placeholder="WhatsApp Number" pattern="[+]?[0-9\s-]{10,15}" title="10-digit mobile number, with or without +91" autocomplete="tel" inputmode="tel" required>
             <button type="submit" class="btn btn-gold btn-block">Get Brochure on WhatsApp</button>
           </form>
         </div>
@@ -445,8 +445,8 @@
         <div class="form-card">
           <h3>Get a Callback</h3>
           <form class="quick-form" data-form-type="quick_lead" data-source="final_cta" data-redirect="thank-you/index.html">
-            <input type="text" name="name" placeholder="Your Name" required>
-            <input type="tel" name="phone" placeholder="Phone Number" pattern="[0-9]{10}" required>
+            <input type="text" name="name" placeholder="Your Name" autocomplete="name" required>
+            <input type="tel" name="phone" placeholder="Phone Number" pattern="[+]?[0-9\s-]{10,15}" title="10-digit mobile number, with or without +91" autocomplete="tel" inputmode="tel" required>
             <button type="submit" class="btn btn-primary btn-block">Get Callback</button>
           </form>
           <p class="form-note">No brokerage. Transparent guidance from our team.</p>
@@ -459,6 +459,6 @@
 
 <div id="footer-placeholder"></div>
 <script src="assets/js/partials.js" defer></script>
-<script src="assets/js/script.js" defer></script>
+<script src="assets/js/script.js?v=3" defer></script>
 </body>
 </html>
