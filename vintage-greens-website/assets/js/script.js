@@ -20,12 +20,13 @@
   // Paste the Web App URL from your Google Apps Script deployment here.
   // See google-apps-script-lead-capture.gs in the project root for setup
   // instructions. Until this is set, sendToSheet() silently does nothing.
-  const SHEET_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbyq6RxUMejBFkfV0R2DaeXNch7wP_1H1yw9OAKxsy9PqN2hm3EjDwJnygzT0jTwzNl2/exec";
+  const SHEET_WEBAPP_URL = "https://script.google.com/macros/s/AKfycbzNC3OJcfzy2rOKHTqT0m3OGmWZ_R_OlMIv0X-ImnHhgk_4OnMsJ3Fzv6cnblgMjrM2-g/exec";
 
   function sendToSheet(data){
     if (!SHEET_WEBAPP_URL || SHEET_WEBAPP_URL.indexOf('PASTE_YOUR') === 0) return;
     if (data && data.phone) data.phone = normalizePhone(data.phone);
     const body = new URLSearchParams(Object.assign({
+      project: 'Vintage Greens',
       page: window.location.pathname
     }, data));
     try {
