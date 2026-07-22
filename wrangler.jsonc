@@ -1,0 +1,8 @@
+{
+  "name": "vintage-greens-zirakpur",
+  "compatibility_date": "2026-07-20",
+  "assets": {
+    "directory": ".",
+    "not_found_handling": "404-page"
+  }
+}
