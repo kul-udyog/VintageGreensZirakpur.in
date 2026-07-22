@@ -1,0 +1,14 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "vintage",
+  "compatibility_date": "2026-07-22",
+  "observability": {
+    "enabled": true
+  },
+  "assets": {
+    "directory": "vintage-greens-website"
+  },
+  "compatibility_flags": [
+    "nodejs_compat"
+  ]
+}
